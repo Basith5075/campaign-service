@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -111,6 +112,7 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     //  Created a listener in campaignService to listen events of update in the currentAmount and update the currentAmount accordingly.
+    @Order(1)
     @EventListener
     private void updateCurrentGoalAmount(CampaignUpdate campaignUpdate) {
 
