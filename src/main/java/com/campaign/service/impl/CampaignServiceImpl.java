@@ -42,7 +42,7 @@ public class CampaignServiceImpl implements CampaignService {
             logger.info("CampaignServiceImpl: getCampaigns reponse object: {}", Mapper.mapToJsonString(campaignList));
             return campaignList;
         } else {
-            logger.error("CampaignServiceImpl: getCampaigns : encountered errors while fecthing data {}", Mapper.mapToJsonString(new EntityNotFoundException("No Campaigns Present !!")));
+//            logger.error("CampaignServiceImpl: getCampaigns : encountered errors while fecthing data {}", Mapper.mapToJsonString(new EntityNotFoundException("No Campaigns Present !!")));
             throw new EntityNotFoundException("No Campaigns Present !!");
         }
     }
@@ -90,7 +90,7 @@ public class CampaignServiceImpl implements CampaignService {
             logger.info("CampaignServiceImpl: getCampaignById reponse object: {}", Mapper.mapToJsonString(campaign.get()));
             return campaign.get();
         } else {
-            logger.error("CampaignServiceImpl: getCampaignById : encountered errors while fecthing data {}", Mapper.mapToJsonString(new EntityNotFoundException("Campaign not found with id: " + id)));
+//            logger.error("CampaignServiceImpl: getCampaignById : encountered errors while fecthing data {}", Mapper.mapToJsonString(new EntityNotFoundException("Campaign not found with id: " + id)));
             throw new EntityNotFoundException("Campaign not found with id: " + id);
         }
     }
@@ -106,7 +106,7 @@ public class CampaignServiceImpl implements CampaignService {
             return "deleted the campaign with id : " + id + " successfully !!";
         } else {
 
-            logger.error("CampaignServiceImpl: deleteCampaignById : encountered errors while fecthing data {}", Mapper.mapToJsonString(new EntityNotFoundException("Campaign not found with id: " + id)));
+//            logger.error("CampaignServiceImpl: deleteCampaignById : encountered errors while fecthing data {}", Mapper.mapToJsonString(new EntityNotFoundException("Campaign not found with id: " + id)));
             throw new EntityNotFoundException("Campaign not found with id: " + id);
         }
     }
