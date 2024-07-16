@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.campaign.controller.CampaignControllerTest
--------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.343 s -- in com.campaign.controller.CampaignControllerTest
