@@ -1,8 +1,6 @@
 spring:
   application:
-    name: campaign
-  profiles:
-    active: local
+    name: campaign-dev
   datasource:
     url: ${postgre.url}
     username: ${postgre.username}
@@ -24,14 +22,13 @@ spring:
       port: 8200
   config:
     import: vault://
-#  main:
-#    allow-circular-references: true
 
 server:
-  port: 5002
-
-myjwt:
-#  mysecret: Pulling this off from vault
-  expire: 30
-
-
+  port: 5004
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:keystore.p12
+    key-store-password: ${keystore.secret}
+    protocol: TLS
+    enabled-protocols: TLSv1.2

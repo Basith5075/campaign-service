@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CampaignTransactionServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">campaign</a> &gt; <a href="index.source.html" class="el_package">com.campaign.service.impl</a> &gt; <span class="el_source">CampaignTransactionServiceImpl.java</span></div><h1>CampaignTransactionServiceImpl.java</h1><pre class="source lang-java linenums">package com.campaign.service.impl;
+
+import com.campaign.entity.CampaignTransaction;
+import com.campaign.events.CampaignUpdate;
+import com.campaign.exception.EntityNotFoundException;
+import com.campaign.repository.CampaignTransactionRepository;
+import com.campaign.service.CampaignTransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+<span class="fc" id="L15">public class CampaignTransactionServiceImpl implements CampaignTransactionService {</span>
+
+    @Autowired
+    private CampaignTransactionRepository campaignTransactionRepository;
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
+    @Override
+    public CampaignTransaction createCampaignTransaction(CampaignTransaction campaignTransaction) {
+
+        // publishing the event of updating the currentAmount in Campaign class
+<span class="fc" id="L27">        applicationEventPublisher.publishEvent(new CampaignUpdate(campaignTransaction.getCampaign().getId(), campaignTransaction.getAmount()));</span>
+
+<span class="fc" id="L29">        return campaignTransactionRepository.save(campaignTransaction);</span>
+    }
+
+
+    @Override
+    public List&lt;CampaignTransaction&gt; getAllCampaignTransactions() {
+
+<span class="fc" id="L36">        List&lt;CampaignTransaction&gt; campaignTransactionList = campaignTransactionRepository.findAll();</span>
+
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (campaignTransactionList.isEmpty()) {</span>
+<span class="fc" id="L39">            throw new EntityNotFoundException(&quot;Campaign transactions not found&quot;);</span>
+        } else {
+<span class="fc" id="L41">            return campaignTransactionList;</span>
+        }
+    }
+
+    @Override
+    public CampaignTransaction getCampaignTransactionById(int id) {
+
+<span class="fc" id="L48">        CampaignTransaction campaignTransaction = campaignTransactionRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(&quot;Campaign transactions not found with Id:&quot; + id));</span>
+
+<span class="fc" id="L50">        return campaignTransaction;</span>
+    }
+
+    @Override
+    public CampaignTransaction updateCampaignTransaction(int id, CampaignTransaction campaignTransaction) {
+
+<span class="fc" id="L56">        CampaignTransaction existingTransaction = this.getCampaignTransactionById(id);</span>
+
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        if (campaignTransaction.getCustomerId() != 0) {</span>
+<span class="fc" id="L59">            existingTransaction.setCustomerId(campaignTransaction.getCustomerId());</span>
+        }
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (campaignTransaction.getCampaign() != null) {</span>
+<span class="fc" id="L62">            existingTransaction.setCampaign(campaignTransaction.getCampaign());</span>
+        }
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (campaignTransaction.getAmount() != 0.0) {</span>
+<span class="fc" id="L65">            existingTransaction.setAmount(campaignTransaction.getAmount());</span>
+        }
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        if (campaignTransaction.getDateTime() != null) {</span>
+<span class="fc" id="L68">            existingTransaction.setDateTime(campaignTransaction.getDateTime());</span>
+        }
+
+<span class="fc" id="L71">        campaignTransactionRepository.save(existingTransaction);</span>
+<span class="fc" id="L72">        return existingTransaction;</span>
+    }
+
+    @Override
+    public String deleteCampaignTransactionById(int id) {
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (campaignTransactionRepository.existsById(id)) {</span>
+<span class="fc" id="L78">            campaignTransactionRepository.deleteById(id);</span>
+<span class="fc" id="L79">            return &quot;Transaction deleted successfully&quot;;</span>
+        } else {
+<span class="fc" id="L81">            throw new EntityNotFoundException(&quot;Campaign transactions not found with Id:&quot; + id);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

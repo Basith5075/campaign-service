@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: campaign-local
+  datasource:
+    url: jdbc:postgresql://localhost:5432/campaign
+    username: forest
+    password: root@123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 5005
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:keystore.p12
+    key-store-password: somerndompwd
+    protocol: TLS
+    enabled-protocols: TLSv1.2
+splunk:
+  index: campaign_service_dev
+  source: http-campaign-event-logs
+  token: d54bd62a-3c6b-44a6-a19f-aea2ef1c8a93
+  url: http://localhost:8088
+myjwt:
+  mysecret: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+  expire: 30
