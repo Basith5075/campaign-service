@@ -2,7 +2,7 @@ spring:
   application:
     name: campaign
   profiles:
-    active: local
+    active: dev
   datasource:
     url: ${postgre.url}
     username: ${postgre.username}
@@ -12,26 +12,26 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-#  cloud:
-#    vault:
-#      kv:
-#        enabled: true
-#        backend: kv
-#      authentication: TOKEN
-#      token: ${TOKEN_VAULT}
-#      scheme: http
-#      host: 127.0.0.1
-#      port: 8200
-#  config:
-#    import: vault://
-#  main:
-#    allow-circular-references: true
+  cloud:
+    vault:
+      kv:
+        enabled: true
+        backend: kv
+      authentication: TOKEN
+      token: ${TOKEN_VAULT}
+      scheme: http
+      host: 127.0.0.1
+      port: 8200
+  config:
+    import: vault://
+  main:
+    allow-circular-references: true
 
 server:
   port: 5002
 
-#myjwt:
-##  mysecret: Pulling this off from vault
-#  expire: 30
+myjwt:
+#  mysecret: Pulling this off from vault
+  expire: 30
 
 
