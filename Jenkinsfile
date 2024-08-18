@@ -17,13 +17,13 @@ pipeline {
         stage('Static Code Analysis') {
             steps  {
 
-                 sh '''
+                 sh "
                 mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=campaign-service \
                       -Dsonar.projectName='campaign-service' \
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.token=$SONARQUBE_TOKEN
-                      '''
+                      "
             }
         }
 
