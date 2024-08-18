@@ -4,10 +4,6 @@ pipeline {
         maven 'local_maven'
      }
 
-     environment {
-        SONARQUBE_TOKEN = "sqp_69cb360dbf9e71bd6b65ee9ac841fb4bfa664b67"
-     }
-
     stages {
         stage('Run Unit Tests'){
             steps{
@@ -22,9 +18,8 @@ pipeline {
                       -Dsonar.projectKey=campaign-service \
                       -Dsonar.projectName='campaign-service' \
                       -Dsonar.host.url=http://localhost:9000 \
-                      -Dsonar.token=$SONARQUBE_TOKEN
+                      -Dsonar.token=sqp_69cb360dbf9e71bd6b65ee9ac841fb4bfa664b67
                       '''
-
            }
         }
 
