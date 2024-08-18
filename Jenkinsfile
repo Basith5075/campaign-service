@@ -33,12 +33,20 @@ pipeline {
                   }
         }
 
-            stage('Create Docker image') {
+       stage('Create Docker image') {
             steps {
                 script {
                     sh 'docker build -t basith321/campaign-service:v0.1 .'
                 }
             }
+       }
+
+       stage('Docker Hub: Image Push') {
+                   steps {
+                       script {
+                           sh 'docker push basith321/campaign-service:v0.1'
+                       }
+                   }
         }
 
     }
