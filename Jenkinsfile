@@ -21,8 +21,7 @@ pipeline {
                       -Dsonar.projectKey=campaign-service \
                       -Dsonar.projectName='campaign-service' \
                       -Dsonar.host.url=http://localhost:9000 \
-                      -Dsonar.token=$SONARQUBE_TOKEN
-                      "
+                      -Dsonar.token=$SONARQUBE_TOKEN"
             }
         }
 
