@@ -17,8 +17,7 @@ pipeline {
         stage('Static Code Analysis') {
             steps  {
 
-                 sh "
-                mvn clean verify sonar:sonar \
+                 sh "mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=campaign-service \
                       -Dsonar.projectName='campaign-service' \
                       -Dsonar.host.url=http://localhost:9000 \
