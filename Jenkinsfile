@@ -27,10 +27,19 @@ pipeline {
            }
         }
 
-        stage('build') {
+        stage('Build Java Project') {
              steps {
                   sh 'mvn clean install'
                   }
         }
+
+            stage('Create Docker image') {
+            steps {
+                script {
+                    sh 'docker build -t basith321/campaign-service:v0.1 .'
+                }
+            }
+        }
+
     }
 }
