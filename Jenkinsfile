@@ -5,7 +5,7 @@ pipeline {
      }
 
      environment {
-        SONARQUBE_TOKEN = credentials('sonartoken')
+        SONARQUBE_TOKEN = "sqp_69cb360dbf9e71bd6b65ee9ac841fb4bfa664b67"
      }
 
     stages {
@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Static Code Analysis') {
             steps  {
-                withSonarQubeEnv("${SONARQUBE_ENV}") {
+
                  sh '''
                  mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=campaign-service \
@@ -24,7 +24,7 @@ pipeline {
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.token=$SONARQUBE_TOKEN
                       '''
-            }
+
            }
         }
 
