@@ -5,7 +5,7 @@ pipeline {
      }
 
      environment{
-       SONARQUBE_TOKEN = credentials('sonartoken')
+       withCredentials([string(credentialsId: 'sonartoken', variable: 'SONAR_TOKEN')])
      }
 
     stages {
