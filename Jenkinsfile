@@ -4,6 +4,10 @@ pipeline {
         maven 'local_maven'
      }
 
+     environment {
+        SONARQUBE_TOKEN = credentials('sonartoken')
+     }
+
     stages {
         stage('Run Unit Tests'){
             steps{
@@ -13,7 +17,6 @@ pipeline {
         stage('Static Code Analysis') {
             steps  {
 
-             withCredentials([string(credentialsId: 'sonartoken', variable: 'SONAR_TOKEN')]){
                  sh '''
                 mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=campaign-service \
@@ -21,7 +24,6 @@ pipeline {
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.token=$SONARQUBE_TOKEN
                       '''
-                }
             }
         }
 
