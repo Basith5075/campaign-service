@@ -14,24 +14,25 @@ pipeline {
                 sh 'mvn clean test'
             }
         }
-        stage('Static Code Analysis') {
-            steps  {
-
-                 sh '''
-                 mvn clean verify sonar:sonar \
-                      -Dsonar.projectKey=campaign-service \
-                      -Dsonar.projectName='campaign-service' \
-                      -Dsonar.host.url=http://localhost:9000 \
-                      -Dsonar.token=$SONARQUBE_TOKEN
-                      '''
-           }
-        }
 
         stage('Build Java Project') {
              steps {
                   sh 'mvn clean install'
                   }
         }
+
+        stage('Static Code Analysis') {
+                    steps  {
+
+                         sh '''
+                         mvn clean verify sonar:sonar \
+                              -Dsonar.projectKey=campaign-service \
+                              -Dsonar.projectName='campaign-service' \
+                              -Dsonar.host.url=http://localhost:9000 \
+                              -Dsonar.token=$SONARQUBE_TOKEN
+                              '''
+                   }
+         }
 
        stage('Create Docker image') {
             steps {
